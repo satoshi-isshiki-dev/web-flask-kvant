@@ -1,41 +1,44 @@
-{% extends 'base.html' %}
-
-{% block title %}
-Информация о направлении, его особенностях
-{% endblock %}
-
-{% block body %}
+{% extends 'base.html' %} {% block title %} Информация о направлении, его
+особенностях {% endblock %} {% block body %}
 <main class="py-8">
-    <div class="container mx-auto flex justify-center">
-        <div class="w-full md:w-2/3 lg:w-1/2 flex flex-wrap justify-center">
-            <div class="w-full md:w-1/2 lg:w-1/3 p-4">
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img src="/static/images/flutter.png" alt="Image" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h2 class="text-lg font-bold mb-2">Заголовок 1</h2>
-                        <a href="#" class="bg-gray-900 text-white py-2 px-4 rounded-lg hover:bg-gray-800">Кнопка</a>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/2 lg:w-1/3 p-4">
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img src="/static/images/vue.webp" alt="Image" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h2 class="text-lg font-bold mb-2">Заголовок 2</h2>
-                        <a href="#" class="bg-gray-900 text-white py-2 px-4 rounded-lg hover:bg-gray-800">Кнопка</a>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/2 lg:w-1/3 p-4">
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img src="/static/images/python.jpeg" alt="Image" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h2 class="text-lg font-bold mb-2">Заголовок 3</h2>
-                        <a href="#" class="bg-gray-900 text-white py-2 px-4 rounded-lg hover:bg-gray-800">Кнопка</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="m-4 flex">
+    <img src="/static/images/mobile.jpg" width="400px" alt="" />
+    <p class="m-4">
+      Направление обучения
+      <strong>"Разработка мобильных приложений"</strong> предназначено для
+      школьников, которые хотят научиться создавать свои собственные мобильные
+      приложения. Это направление обучения предоставляет уникальную возможность
+      для учеников развивать свои навыки программирования и дизайна, а также
+      позволяет им получить практический опыт в создании мобильных приложений.
+    </p>
+    <p class="m-4">
+      Особенностью данного направления обучения является то, что оно
+      ориентировано на практическое применение знаний. Ученики будут работать с
+      реальными проектами, которые помогут им научиться создавать мобильные
+      приложения с нуля. Они будут изучать основы программирования, дизайна
+      интерфейсов, а также узнают о технологиях, используемых в разработке
+      мобильных приложений.
+    </p>
+  </div>
+  <p class="m-4">
+    В рамках обучения ученики будут работать с различными инструментами и
+    технологиями, такими как
+    <strong> Flutter, Dart, Android Studio, Kotlin, Swift, Xcode</strong> и
+    другие. Они также будут изучать основы разработки мобильных приложений для
+    различных платформ, таких как iOS и Android.
+  </p>
+  <p class="m-4">
+    Кроме того, ученики будут иметь возможность работать в команде и участвовать
+    в проектах, которые помогут им развить навыки коммуникации и сотрудничества.
+    Это очень важно для будущих разработчиков мобильных приложений, так как
+    работа в команде является неотъемлемой частью процесса разработки.
+  </p>
+  <p class="m-4">
+    В итоге, ученики, прошедшие обучение по направлению "Разработка мобильных
+    приложений", будут иметь не только теоретические знания, но и практический
+    опыт в создании мобильных приложений. Это поможет им в дальнейшем при выборе
+    профессии и даст возможность начать карьеру в сфере разработки мобильных
+    приложений.
+  </p>
 </main>
 {% endblock %}
