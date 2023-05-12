@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Админка
+{% endblock %}
+
+{% block style %}
+<style>
+    .flexrow {
+        display: flex;
+    }
+    .b1 {
+        flex: 2;
+        margin: 15px;
+    }
+    .b2 {
+        flex: 1;
+        margin: 15px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="flexrow">
+    <div class="b1">
+        <div id="news-list" class="mt-8 mx-auto max-w-screen-sm">
+            <form id="add-news-form" class="flex flex-col space-y-4">
+                <label for="title" class="font-bold">Название:</label>
+                <input type="text" id="title" name="title" required class="border border-gray-300 rounded-md p-2">
+                <label for="content" class="font-bold">Описание:</label>
+                <textarea id="content" name="content" required class="border border-gray-300 rounded-md p-2"></textarea>
+                <label for="author" class="font-bold">Автор:</label>
+                <input type="text" id="author" name="author" required class="border border-gray-300 rounded-md p-2">
+                <label for="image_url" class="font-bold">Изображение:</label>
+                <input type="image_url" id="image_url" name="image_url" required class="border border-gray-300 rounded-md p-2">
+                <label for="date" class="font-bold">Дата:</label>
+                <input type="date" id="date" name="date" required class="border border-gray-300 rounded-md p-2">
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out">Добавить новость</button>
+            </form>
+        </div>
+    </div>
+        
+    <div class="b2">
+        <ul id="list" class="space-y-4 mt-8"></ul>
+    </div>
+</div>
+
+
+<script>
+
+    // ! Добавление новости
+    const form = document.getElementById('add-news-form');
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+        const author = document.getElementById('author').value;
+        const date = document.getElementById('date').value;
+        const image_url = document.getElementById('image_url').value;
+        const data = { title, content, author, date, image_url };
+        fetch('/news', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                const successMessage = document.createElement('div');
+                showMessage(successMessage, 'bg-green-500')
+                setTimeout(() => {
+                    location.reload()
+                }, 2000);
+
+            })
+            .catch(error => {
+                const errorMessage = document.createElement('div');
+                showMessage(errorMessage, 'bg-red-500')
+            });
+    })
+
+    // ! Показать всплывающее сообщение об успешном добавлении носоти или ошибке
+    function showMessage(msg, style) {
+        msg.classList.add(style);
+        msg.classList.add('text-white', 'p-4', 'rounded', 'fixed', 'top-0', 'right-0', 'mt-16', 'mr-16', 'transition', 'duration-300', 'opacity-0', 'z-50', 'ease-in-out', 'transform', 'translate-x-full')
+        msg.innerText = 'Новость успешно добавлена';
+        document.body.appendChild(msg);
+        setTimeout(() => {
+            msg.classList.remove('opacity-0', 'translate-x-full');
+            msg.classList.add('opacity-100', '-translate-x-0');
+            setTimeout(() => {
+                msg.classList.remove('opacity-100', '-translate-x-0');
+                msg.classList.add('opacity-0', 'translate-x-full');
+                setTimeout(() => {
+                    msg.remove();
+                }, 300);
+            }, 3000);
+        }, 100);
+    }
+
+    // ! Показать список доступных новостей + возможность их удалить
+    const newsList = document.getElementById('list');
+
+    fetch('/news')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(news => {
+                const li = document.createElement('li');
+                li.classList.add('flex', 'justify-between', 'items-center', 'bg-white', 'shadow-md', 'rounded-md', 'p-4')
+
+                const h2 = document.createElement('h2');
+                h2.classList.add('text-lg', 'font-bold')
+                h2.innerText = news.title;
+
+                const button = document.createElement('button');
+                button.classList.add('bg-red-500', 'text-white', 'py-2', 'px-4', 'rounded-md', 'hover:bg-red-600', 'transition', 'duration-300', 'ease-in-out')
+                button.innerText = 'Удалить';
+
+                button.addEventListener('click', () => {
+                    fetch(`/news/${news.id}`, {
+                        method: 'DELETE'
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            li.remove();
+                        })
+                        .catch(error => console.error(error));
+                });
+                li.appendChild(h2);
+                li.appendChild(button);
+                newsList.appendChild(li);
+            });
+        })
+        .catch(error => console.error(error));
+</script>
+{% endblock %}

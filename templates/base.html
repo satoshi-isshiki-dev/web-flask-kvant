@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% block style %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover">
+    <header class="bg-gray-900 text-white py-4">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <div class="flex items-center">
+                <img src="/static/images/logo.jpg" alt="Logo" width="60px" class="rounded-full shadow-xl">
+            </div>
+            <nav class="flex items-center">
+                <a href="/" class="px-4 hover:text-gray-400">Главная</a>
+                <a href="/info" class="px-4 hover:text-gray-400">Информация</a>
+                <a href="/modules" class="px-4 hover:text-gray-400">Модули</a>
+                <a href="/foto" class="px-4 hover:text-gray-400">Фотогалерея</a>
+                <a href="/about" class="px-4 hover:text-gray-400">Контакты</a>
+                <div> | </div>
+                <a href="/admin" class="px-4 hover:text-gray-400">Админка</a>
+            </nav>
+        </div>
+
+        {% block sub_menu %}{% endblock %}
+
+    </header>
+
+    {% block body %}{% endblock %}
+
+    <footer class="bg-gray-900 text-white py-4">
+        <div class="container mx-auto flex flex-wrap justify-between px-4">
+            <div class="w-full md:w-1/3 mb-4 md:mb-0">
+                <h3 class="text-lg font-bold mb-2">Колонка 1</h3>
+                <ul>
+                    <li><a href="#" class="hover:text-gray-400">Ссылка 1</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Ссылка 2</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Ссылка 3</a></li>
+                </ul>
+            </div>
+            <div class="w-full md:w-1/3 mb-4 md:mb-0">
+                <h3 class="text-lg font-bold mb-2">Колонка 2</h3>
+                <ul>
+                    <li><a href="#" class="hover:text-gray-400">Ссылка 1</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Ссылка 2</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Ссылка 3</a></li>
+                </ul>
+            </div>
+            <div class="w-full md:w-1/3">
+                <h3 class="text-lg font-bold mb-2">Колонка 3</h3>
+                <ul>
+                    <li><a href="#" class="hover:text-gray-400">Ссылка 1</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Ссылка 2</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Ссылка 3</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

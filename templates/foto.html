@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Фотогалерея
+{% endblock %}
+
+{% block style %}
+    <style>
+    #modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-image {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+#close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#prev-button {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+#next-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.hidden {
+    display: none;
+}
+    </style>
+{% endblock %}
+
+{% block body %}
+<h1>Фотогалерея page</h1>
+
+<div class="grid grid-cols-3 gap-4">
+    <div class="relative">
+        <img class="w-full" src="/static/images/flutter.png" alt="Photo 1" onclick="openModal(this)">
+        <!-- <div class="absolute inset-0 bg-black opacity-0 hover:opacity-75 transition duration-300">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
+                <h3 class="text-lg font-bold"></h3>
+                <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div> -->
+    </div>
+    <div class="relative">
+        <img class="w-full" src="/static/images/python.jpeg" alt="Photo 2" onclick="openModal(this)">
+        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-75 transition duration-300">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
+                <h3 class="text-lg font-bold">Photo 2</h3>
+                <p class="text-sm">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+        </div>
+    </div>
+    <div class="relative">
+        <img class="w-full" src="/static/images/vue.webp" alt="Photo 3">
+        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-75 transition duration-300">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
+                <h3 class="text-lg font-bold">Photo 3</h3>
+                <p class="text-sm">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                    ea commodo consequat.</p>
+            </div>
+        </div>
+    </div>
+    <div class="relative">
+        <img class="w-full" src="/static/images/flutter.png" alt="Photo 4">
+        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-75 transition duration-300">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
+                <h3 class="text-lg font-bold">Photo 4</h3>
+                <p class="text-sm">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat nulla pariatur.</p>
+            </div>
+        </div>
+    </div>
+    <div class="relative">
+        <img class="w-full" src="/static/images/flutter.png" alt="Photo 5">
+        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-75 transition duration-300">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
+                <h3 class="text-lg font-bold">Photo 5</h3>
+                <p class="text-sm">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                    mollit anim id est laborum.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative">
+        <img class="w-full" src="/static/images/flutter.png" alt="Photo 6">
+        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-75 transition duration-300">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
+                <h3 class="text-lg font-bold">Photo 6</h3>
+                <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="modal" class="hidden">
+    <div class="modal-content">
+        <img id="modal-image" src="" alt="">
+        <button id="close-button" onclick="closeModal()">Close</button>
+        <button id="prev-button" onclick="prevImage()">&lt;</button>
+        <button id="next-button" onclick="nextImage()">&gt;</button>
+    </div>
+</div>
+
+<script>
+    // const images = document.querySelectorAll('.relative');
+    // images.forEach(image => {
+    //     const img = image.querySelector('img');
+    //     const overlay = image.querySelector('.absolute');
+    //     img.addEventListener('mouseover', () => {
+    //         overlay.classList.add('opacity-75');
+    //     });
+    //     img.addEventListener('mouseout', () => {
+    //         overlay.classList.remove('opacity-75');
+    //     });
+    // });
+
+    var images = document.querySelectorAll('.grid img');
+var modal = document.getElementById('modal');
+var modalImage = document.getElementById('modal-image');
+var closeButton = document.getElementById('close-button');
+var prevButton = document.getElementById('prev-button');
+var nextButton = document.getElementById('next-button');
+var currentIndex = 0;
+
+function openModal(image) {
+    modalImage.src = image.src;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    currentIndex = Array.from(images).indexOf(image);
+}
+
+function closeModal() {
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+function prevImage() {
+    currentIndex--;
+    if (currentIndex < 0) {
+        currentIndex = images.length - 1;
+    }
+    modalImage.src = images[currentIndex].src;
+}
+
+function nextImage() {
+    currentIndex++;
+    if (currentIndex >= images.length) {
+        currentIndex = 0;
+    }
+    modalImage.src = images[currentIndex].src;
+}
+
+closeButton.addEventListener('click', closeModal);
+prevButton.addEventListener('click', prevImage);
+nextButton.addEventListener('click', nextImage);
+</script>
+{% endblock %}
